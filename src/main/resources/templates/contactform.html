@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Backend Ninja - Add/modify Contact</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Contact Form</h1>
+			<br/>
+<!-- 			autocomplete="off" -->
+			<form action="#" th:action="@{/automovil/car/create}" th:objet="{model}" method="post">
+				Nombre: <input type="text" class="form-control name-send" id="name"></input>
+				<p th:if="${fields.hasErrors('name')}" th:errors="*{name}">Nombre es un campo requerido</p> 
+				
+				<br/>
+				Descripción: <textarea  class="form-control name-send" rows = "5" cols = "80" form = "myform" id="description">... </textarea>
+<!-- 				 th:field = "*{content}" -->
+				<br/>
+				Modelo Variante:
+					<select class="form-control" id="status">
+				        <option th:each="modelVariantList : ${variantModelList}"
+				                th:value="${modelVariantList.price}"
+				                th:text="${modelVariantList.name}"
+				                />
+				    </select>
+				<br/>
+				Opcionales:
+				    <div th:each="optionalList : ${optionalList}">
+					   <input type="checkbox" th:field="*{optionalList}" th:id="'optional_' + ${optionalList.id}" value="false"/>
+					   <input th:id="'optionalId_' + ${optionalList.id}" th:value="${optionalList.id}" style="display:none;"/>
+					   <input th:id="'optionalPrice_' + ${optionalList.id}" th:value="${optionalList.price}" style="display:none;"/>
+					   <label th:text="${optionalList.name}"></label>
+					   <label th:text="${optionalList.price}"></label>
+					</div>
+				<br/>
+				Costo: <input type="text" class="form-control" id="costo" value="0" readonly="readonly"></input>
+				<br/>
+				<br/><a herf="#" th:herf="@{/automovil/car/create/}"></a>
+				<button class="btn btn-lg btn-primary btn-block" id="buttonAceptar">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Aceptar
+				</button>
+				<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="location.href='http://localhost:8080/automovil/viewlist';">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
+				</button>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var optionId = [];
+		var modelVariant;
+		$('#buttonAceptar').click(function(){
+			debugger;
+			optionallist();
+			data = {
+					optionalId: optionId,
+					name: $("#name").val(),
+					description: $("#description").val(),
+					varianModel: $("#status :selected").text(),
+			};
+			hrefVincular = 'http://localhost:8080/automovil/car/create/' + data;
+			
+			$(this).attr('href', 'javascript:loadPage(\'' + hrefVincular + '\')');
+		});
+		function calcular() {
+		  var costos;
+		  debugger;
+		  costos = parseFloat($("#status").val());
+		  modelVariant = $("#status").text();
+		  if($("#optional_1").is(':checked')){			  
+			  costos= costos + parseFloat($('#optionalPrice_1').val());
+// 			  optionId.push($('#optionalId_1').val());
+		  }
+		  if($("#optional_2").is(':checked')){			  
+			  costos = costos + parseFloat($('#optionalPrice_2').val());
+// 			  optionId.push($('#optionalId_2').val());
+		  }
+		  if($("#optional_3").is(':checked')){			  
+			  costos = costos + parseFloat($('#optionalPrice_3').val());
+// 			  optionId.push($('#optionalId_3').val());
+		  }
+		  if($("#optional_4").is(':checked')){			  
+			  costos = costos + parseFloat($('#optionalPrice_4').val());
+// 			  optionId.push($('#optionalId_4').val());
+		  }
+		  if($("#optional_5").is(':checked')){			  
+			  costos = costos + parseFloat($('#optionalPrice_5').val());
+// 			  optionId.push($('#optionalId_5').val());
+		  }
+		  return costos;
+		}
+		$('#status').on('change', function() {
+			$('#costo').val(calcular);
+		});
+		$('#optional_1').on('change', function() {
+			$('#costo').val(calcular);
+		});
+		$('#optional_2').on('change', function() {
+			$('#costo').val(calcular);
+		});
+		$('#optional_3').on('change', function() {
+			$('#costo').val(calcular);
+		});
+		$('#optional_4').on('change', function() {
+			$('#costo').val(calcular);
+		});
+		$('#optional_5').on('change', function() {
+			$('#costo').val(calcular);
+		});
+		
+		function optionallist(){
+			if($("#optional_1").is(':checked')){			  
+				  optionId.push($('#optionalId_1').val());
+			  }
+			  if($("#optional_2").is(':checked')){			  
+				  optionId.push($('#optionalId_2').val());
+			  }
+			  if($("#optional_3").is(':checked')){			  
+				  optionId.push($('#optionalId_3').val());
+			  }
+			  if($("#optional_4").is(':checked')){			  
+				  optionId.push($('#optionalId_4').val());
+			  }
+			  if($("#optional_5").is(':checked')){			  
+				  optionId.push($('#optionalId_5').val());
+			  }
+		}
+	</script>
+</body>
+</html>
