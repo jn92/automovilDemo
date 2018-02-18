@@ -2,13 +2,13 @@ package com.automovil.demo.dto;
 
 import java.util.List;
 
-public class ViewCarDetailDto extends GeneralCarDto{
+public class ViewCarDetailDto extends GeneralCarDto {
 
 	private Integer id;
-	
+
 	private List<OptionalDto> optional;
 	private List<VariantModelDto> variantModel;
-	
+
 	public Integer getId() {
 		return id;
 	}

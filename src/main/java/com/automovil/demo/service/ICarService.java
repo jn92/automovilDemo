@@ -10,14 +10,13 @@ import com.automovil.demo.exception.ServiceException;
 
 public interface ICarService {
 
-	public void CreateCar (CreateCarDto dto) throws ServiceException;
-	
-	public void UpdateCar (UpdateCarDto dto) throws ServiceException;
-	
-	public void DeleteCar (Integer carId) throws ServiceException;
-	
-	public ViewCarDetailDto ViewCarDetail (Integer carId) throws ServiceException;
-	
-	public List<ViewCarDto> ViewCarList () throws ServiceException;
-}
+	public void CreateCar(CreateCarDto dto) throws ServiceException;
 
+	public void UpdateCar(UpdateCarDto dto) throws ServiceException;
+
+	public void DeleteCar(Integer carId) throws ServiceException;
+
+	public ViewCarDetailDto ViewCarDetail(Integer carId) throws ServiceException;
+
+	public List<ViewCarDto> ViewCarList() throws ServiceException;
+}

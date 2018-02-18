@@ -50,9 +50,16 @@
 			</table>
 		</div>
 		
-		<a th:href="@{/automovil/car}"><button class="btn btn-lg btn-primary btn-block add-car" type="submit"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add contact</button></a>
-		
-		<button class="btn btn-lg btn-primary btn-block cancel" type="submit" onclick="location.href='http://google.com';"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</button>
+		<a href="#" th:href="@{/automovil/car}">
+			<button class="btn btn-lg btn-primary btn-block add-car" type="submit">
+				<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add contact
+			</button>
+		</a>
+		<a href="#" th:href="@{/login?logout}">
+			<button class="btn btn-lg btn-primary btn-block cancel" type="submit">
+				<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+			</button>
+		</a>
 <!-- 	href="http://localhost:8080/automovil/car" -->
 <!-- onclick="location.href='http://localhost:8080/automovil/car';" -->
 	</div>

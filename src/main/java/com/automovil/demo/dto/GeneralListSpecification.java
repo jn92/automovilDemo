@@ -3,9 +3,9 @@ package com.automovil.demo.dto;
 public abstract class GeneralListSpecification {
 
 	private String name;
-	
+
 	private Integer id;
-	
+
 	private Float price;
 
 	public String getName() {

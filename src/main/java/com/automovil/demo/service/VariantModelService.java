@@ -14,30 +14,29 @@ import com.automovil.demo.exception.ServiceException;
 import com.automovil.demo.repository.VariantModelRepository;
 
 @Service("variantModelService")
-public class VariantModelService implements IVariantModelService{
+public class VariantModelService implements IVariantModelService {
 
-	
 	private static final Log LOG = LogFactory.getLog(VariantModelService.class);
-	
+
 	@Autowired
 	@Qualifier("variantModelRepository")
 	private VariantModelRepository variantModelRepository;
-	
+
 	@Override
 	public VariantModel getVariantModel(Integer variantModelId) throws ServiceException {
 		VariantModel variantModel = variantModelRepository.findByIdAndDateDelete(variantModelId, null);
-		if(variantModel == null)
-			throw new ServiceException("Variante de Modelos: ","Error al obtener los datos de variante de modelo");
+		if (variantModel == null)
+			throw new ServiceException("Variante de Modelos: ", "Error al obtener los datos de variante de modelo");
 		return variantModel;
 	}
 
 	@Override
 	public List<VariantModel> getVariantModelList() throws ServiceException {
 		List<VariantModel> variantModelList = new ArrayList<VariantModel>();
-		try {			
+		try {
 			variantModelList = variantModelRepository.findAll();
 		} catch (Exception e) {
-			throw new ServiceException("Variante de Modelos: ","Error al obtener la lista de Variantes de Modelos");
+			throw new ServiceException("Variante de Modelos: ", "Error al obtener la lista de Variantes de Modelos");
 		}
 		return variantModelList;
 	}

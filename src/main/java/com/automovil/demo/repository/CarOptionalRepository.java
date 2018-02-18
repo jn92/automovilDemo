@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import com.automovil.demo.entity.CarOptional;
 
 @Repository("carOptionalRepository")
-public interface CarOptionalRepository extends JpaRepository<CarOptional, Integer>{
+public interface CarOptionalRepository extends JpaRepository<CarOptional, Integer> {
 
 	public List<CarOptional> findAllByCarAndDateDelete(Integer carId, Date dateDelete);
-	
+
 	public CarOptional findByCarAndOptionalAndDateDelete(Integer carId, Integer optionalId, Date dateDelete);
 }

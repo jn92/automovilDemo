@@ -1,6 +1,6 @@
 package com.automovil.demo.dto;
 
-public class UpdateCarDto extends GeneralCarDto{
+public class UpdateCarDto extends GeneralCarDto {
 
 	private Integer id;
 
