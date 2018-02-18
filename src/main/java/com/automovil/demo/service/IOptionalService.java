@@ -10,4 +10,6 @@ public interface IOptionalService {
 	public Optional getOptional(Integer optionalId) throws ServiceException;
 
 	public List<Optional> optionalList() throws ServiceException;
+
+	Boolean getOptionalExist(Integer optionalId) throws ServiceException;
 }

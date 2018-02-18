@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.automovil.demo.component.CarConverter;
 import com.automovil.demo.dto.CreateCarDto;
 import com.automovil.demo.dto.OptionalDto;
 import com.automovil.demo.dto.UpdateCarDto;
@@ -41,19 +42,20 @@ public class CarService implements ICarService{
 	@Qualifier("carOptionalService") 
 	private CarOptionalService carOptionalService;
 	
+	@Autowired
+	@Qualifier("carConverter")
+	private CarConverter carConverter;
+	
 	@Transactional
-	public void CreateCar (CreateCarDto dto) throws ServiceException{
-		Car car = new Car();
-		car.setName(dto.getName());
+	public void CreateCar (CreateCarDto createCarDto) throws ServiceException{
+		Car car = carConverter.converterCarCreate(createCarDto);
 		car.createOnRepository(carRepository);
-		car.setVariantModel(variantModelService.getVariantModel(dto.getVariantModelId()));
-		for (Integer optionalId : dto.getOptionalId()) {
+		for (Integer optionalId : createCarDto.getOptionalId()) {
 			CarOptional carOptional = new CarOptional();
 			carOptional.setOptional(optionalService.getOptional(optionalId));
 			carOptional.setCar(car);
 			carOptionalService.create(carOptional);
 		}
-		car.setPrice(dto.getTotalPrice());
 	}
 
 	@Override

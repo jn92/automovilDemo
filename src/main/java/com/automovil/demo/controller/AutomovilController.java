@@ -48,59 +48,49 @@ public class AutomovilController {
 	private CarService carService;
 
 	@GetMapping("/viewcar")
-	public ModelAndView viewList(MessageList messageList) throws ServiceException {
-		ModelAndView mav = new ModelAndView("contacts");
+	public String viewList(Model model, MessageList messageList) throws ServiceException {
+//		LOG.in
 		List<ViewCarDto> list = carService.ViewCarList();
 		if (list.size() == 0) {
 			messageList.addInformation("Altas Pendientes:",
 					"No se encontraron resultados relacionados con su b&uacute;squeda.");
-			mav.addObject("messageList", messageList);
+			model.addAttribute("messageList", messageList);
 		}
-		mav.addObject("carList", carService.ViewCarList());
-		return mav;
+		model.addAttribute("carList", carService.ViewCarList());
+		return ViewConstant.CONTACTS;
 	}
 
-	@GetMapping("/viewlist")
-	public ModelAndView viewCarDetail(MessageList messageList) throws ServiceException {
-		ModelAndView mav = new ModelAndView(ViewConstant.CONTACTS);
-		List<ViewCarDto> list = carService.ViewCarList();
-		if (list.size() == 0) {
-			messageList.addInformation("Altas Pendientes:",
-					"No se encontraron resultados relacionados con su b&uacute;squeda.");
-			mav.addObject("messageList", messageList);
-		}
-		mav.addObject("carList", list);
-		return mav;
-	}
 
 	@GetMapping("/car")
-	public ModelAndView createCar() throws ServiceException {
-		ModelAndView mav = new ModelAndView(ViewConstant.CONTACTS_FROM);
-		mav.addObject("optionalList", optionalService.optionalList());
-		mav.addObject("variantModelList", variantModelService.getVariantModelList());
-		return mav;
+	public String createCar(Model model) throws ServiceException {
+		model.addAttribute("createCar", new CreateCarDto());
+		model.addAttribute("optionalList", optionalService.optionalList());
+		model.addAttribute("variantModelList", variantModelService.getVariantModelList());
+		return ViewConstant.CONTACTS_FROM;
 	}
 
-	@PostMapping("/car/create/")
-	public String createCar(@Valid @ModelAttribute("model") CreateCarDto dto, BindingResult result, Model model)
+	@PostMapping("/car/create")
+	public String createCar(@ModelAttribute("createCar") CreateCarDto createCarDto, Model model)
 			throws ServiceException {
-		try {
-			if (result.hasErrors()) {
-				MessageList messageList = new MessageList();
-				messageList.addWarning("Creación Automovil:", "Por favor, Complete Los campos obligatorios.");
-				model.addAttribute("model", dto);
-				model.addAttribute("messageList", messageList);
-				model.addAttribute("variantModelList", variantModelService.getVariantModelList());
-				model.addAttribute("optionalList", optionalService.optionalList());
-			}
-			carService.CreateCar(dto);
-		} catch (ServiceException e) {
-			model.addAttribute("model", dto);
-			model.addAttribute("messageList", e.getMessageList());
-			return ViewConstant.CONTACTS_FROM;
-		}
-		MessageList messageList = new MessageList();
-		messageList.addInformation("Creacón Automovil:", "Su creación fue exitosa.");
+		LOG.info("METHOD: createCar() -- PARAMS:" + createCarDto.toString());
+//		try {
+//			if (result.hasErrors()) {
+//				MessageList messageList = new MessageList();
+//				messageList.addWarning("Creación Automovil:", "Por favor, Complete Los campos obligatorios.");
+//				model.addAttribute("model", createCarDto);
+//				model.addAttribute("messageList", messageList);
+//				model.addAttribute("variantModelList", variantModelService.getVariantModelList());
+//				model.addAttribute("optionalList", optionalService.optionalList());
+//			}
+			carService.CreateCar(createCarDto);
+//		} catch (ServiceException e) {
+//			model.addAttribute("model", createCarDto);
+//			model.addAttribute("messageList", e.getMessageList());
+//			return ViewConstant.CONTACTS_FROM;
+//		}
+//		MessageList messageList = new MessageList();
+//		messageList.addInformation("Creacón Automovil:", "Su creación fue exitosa.");
+		model.addAttribute("result", 1);
 		return ViewConstant.CONTACTS;
 	}
 
@@ -112,5 +102,10 @@ public class AutomovilController {
 	@DeleteMapping("/car/delete/{carId}")
 	public String DeleteCar(@PathVariable Integer carId, Model model) {
 		return null;
+	}
+	
+	@GetMapping("/cancel")
+	public String cancel(Model model, MessageList messageList) throws ServiceException {
+		return viewList(model, messageList);
 	}
 }

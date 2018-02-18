@@ -50,6 +50,8 @@
 			</table>
 		</div>
 		
+		<div th:if="${result == 1}" class="alert alert-success" role="alert"> result add !</div>
+		
 		<a href="#" th:href="@{/automovil/car}">
 			<button class="btn btn-lg btn-primary btn-block add-car" type="submit">
 				<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add contact

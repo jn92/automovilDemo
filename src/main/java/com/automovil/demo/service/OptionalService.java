@@ -41,4 +41,11 @@ public class OptionalService implements IOptionalService {
 		return optionalList;
 	}
 
+	@Override
+	public Boolean getOptionalExist(Integer optionalId) throws ServiceException {
+		Optional optional = optionalRepository.findByIdAndDateDelete(optionalId, null);
+		if (optional == null)
+			return false;
+		return true;
+	}
 }
