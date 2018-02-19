@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.automovil.demo.entity.Car;
 import com.automovil.demo.entity.CarOptional;
+import com.automovil.demo.entity.Optional;
 import com.automovil.demo.exception.ServiceException;
 import com.automovil.demo.repository.CarOptionalRepository;
 
@@ -51,9 +52,8 @@ public class CarOptionalService implements ICarOptionalService {
 	}
 
 	@Override
-	public void delete(Integer carId, Integer optionalId) throws ServiceException {
-		CarOptional variantModelOptional = carOptionalRepository.findByCarAndOptionalAndDateDelete(carId, optionalId,
-				null);
-		variantModelOptional.deleteOnRepository(carOptionalRepository);
+	public void delete(Car car, Optional optional) throws ServiceException {
+		CarOptional carOptional = carOptionalRepository.findByCarAndOptionalAndDateDelete(car, optional,null);
+		carOptional.deleteOnRepository(carOptionalRepository);
 	}
 }

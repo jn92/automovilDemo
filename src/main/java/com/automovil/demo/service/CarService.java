@@ -149,7 +149,7 @@ public class CarService implements ICarService{
 					exist = true;
 			}
 			if(!exist)
-				carOptionalService.delete(carOptional.getCar().getId(), carOptional.getOptional().getId());
+				carOptionalService.delete(carOptional.getCar(), carOptional.getOptional());
 		}
 	}
 	
