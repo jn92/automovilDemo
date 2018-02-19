@@ -1,9 +1,9 @@
 package com.automovil.demo.message;
 
-public class SuccessMessage extends Message{
-	
+public class SuccessMessage extends Message {
+
 	private String type = "success";
-	
+
 	public SuccessMessage(String label, String message) {
 		super(label, message);
 	}

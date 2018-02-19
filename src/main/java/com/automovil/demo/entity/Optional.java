@@ -17,12 +17,12 @@ public class Optional extends ModelCar {
 	private String description;
 
 	@Column(name = "price", nullable = false, length = 50)
-	private String price;
+	private Float price;
 
 	public Optional() {
 	}
 
-	public Optional(String name, String description, String price) {
+	public Optional(String name, String description, Float price) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -45,11 +45,12 @@ public class Optional extends ModelCar {
 		this.description = description;
 	}
 
-	public String getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
+
 }

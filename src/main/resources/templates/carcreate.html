@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Backend Ninja - Add/modify Contact</title>
+	<title>Automovil Demo</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet"
@@ -17,61 +17,68 @@
 
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Contact Form</h1>
+			<h1>Formulario Automovil</h1>
 			<br/>
-<!-- 			autocomplete="off" -->
-			<form action="#" th:action="@{/automovil/car/create}" th:objet="{model}" method="post">
-				Nombre: <input type="text" class="form-control name-send" id="name"></input>
-				<p th:if="${fields.hasErrors('name')}" th:errors="*{name}">Nombre es un campo requerido</p> 
+			<form action="#" th:action="@{/automovil/car/create}" th:object="${createCar}" method="post">
+				<input type="hidden" th:field="*{id}"/>
+				<input type="hidden" id="varianModelPrice" th:value="${createCar.varianModelPrice}"/>
+				Nombre: <input type="text" class="form-control" id="name" th:value="${createCar.name}"/>
 				
 				<br/>
-				Descripción: <textarea  class="form-control name-send" rows = "5" cols = "80" form = "myform" id="description">... </textarea>
-<!-- 				 th:field = "*{content}" -->
+				Descripción: <textarea  class="form-control name-send" rows = "5" cols = "80" form = "myform" id="description" th:text="${createCar.description}"></textarea>
 				<br/>
 				Modelo Variante:
-					<select class="form-control" id="status">
-				        <option th:each="modelVariantList : ${variantModelList}"
-				                th:value="${modelVariantList.price}"
-				                th:text="${modelVariantList.name}"
-				                />
-				    </select>
+					<div class="statusModel">
+						<select class="form-control" id="status" >
+					        <option th:each="modelVariantList : ${variantModelList}"
+					                th:value="${modelVariantList.price}"
+					                th:text="${modelVariantList.name}"
+					                
+					                />
+					    </select>
+				    </div>
 				<br/>
 				Opcionales:
 				    <div th:each="optionalList : ${optionalList}">
-					   <input type="checkbox" th:field="*{optionalList}" th:id="'optional_' + ${optionalList.id}" value="false"/>
-					   <input th:id="'optionalId_' + ${optionalList.id}" th:value="${optionalList.id}" style="display:none;"/>
+					   <input type="checkbox" th:id="'optional_' + ${optionalList.id}"/>
+					   <input th:id="'optionalId_' + ${optionalList.id}" th:value="${optionalList.id}"  style="display:none;"/>
 					   <input th:id="'optionalPrice_' + ${optionalList.id}" th:value="${optionalList.price}" style="display:none;"/>
 					   <label th:text="${optionalList.name}"></label>
 					   <label th:text="${optionalList.price}"></label>
 					</div>
 				<br/>
-				Costo: <input type="text" class="form-control" id="costo" value="0" readonly="readonly"></input>
+				Costo: <input type="text" class="form-control" id="costo" readonly="readonly" th:field="*{totalPrice}" th:value="${createCar.totalPrice}"></input>
+<!-- 				 -->
 				<br/>
-				<br/><a herf="#" th:herf="@{/automovil/car/create/}"></a>
-				<button class="btn btn-lg btn-primary btn-block" id="buttonAceptar">
-					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Aceptar
-				</button>
-				<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="location.href='http://localhost:8080/automovil/viewlist';">
+				<input type="hidden" id="nameSend" th:field="*{name}"/>
+				<input type="hidden" id="descriptionSend" th:field="*{description}"/>
+				<input type="hidden" id="statusSend" th:field="*{varianModel}"/>
+				<input type="hidden" id="optionListIds" th:field="*{optionalId}"/>
+				<br/>
+				<a herf="#" th:herf="@{/automovil/car/create}">
+					<button class="btn btn-lg btn-primary btn-block" id="buttonAceptar">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Aceptar
+					</button>
+				</a>
+			</form>
+			<a href="#" th:href="@{/automovil/cancel}">
+				<button class="btn btn-lg btn-primary btn-block" type="submit">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
 				</button>
-			</form>
+			</a>
 		</div>
 	</div>
 	<script type="text/javascript">
+
 		var optionId = [];
 		var modelVariant;
 		$('#buttonAceptar').click(function(){
 			debugger;
 			optionallist();
-			data = {
-					optionalId: optionId,
-					name: $("#name").val(),
-					description: $("#description").val(),
-					varianModel: $("#status :selected").text(),
-			};
-			hrefVincular = 'http://localhost:8080/automovil/car/create/' + data;
-			
-			$(this).attr('href', 'javascript:loadPage(\'' + hrefVincular + '\')');
+			$("#nameSend").val($("#name").val());
+			$("#descriptionSend").val($("#description").val());
+			$("#optionListIds").val(optionId);
+			$("#statusSend").val($("#status :selected").text());
 		});
 		function calcular() {
 		  var costos;
@@ -80,23 +87,18 @@
 		  modelVariant = $("#status").text();
 		  if($("#optional_1").is(':checked')){			  
 			  costos= costos + parseFloat($('#optionalPrice_1').val());
-// 			  optionId.push($('#optionalId_1').val());
 		  }
 		  if($("#optional_2").is(':checked')){			  
 			  costos = costos + parseFloat($('#optionalPrice_2').val());
-// 			  optionId.push($('#optionalId_2').val());
 		  }
 		  if($("#optional_3").is(':checked')){			  
 			  costos = costos + parseFloat($('#optionalPrice_3').val());
-// 			  optionId.push($('#optionalId_3').val());
 		  }
 		  if($("#optional_4").is(':checked')){			  
 			  costos = costos + parseFloat($('#optionalPrice_4').val());
-// 			  optionId.push($('#optionalId_4').val());
 		  }
 		  if($("#optional_5").is(':checked')){			  
 			  costos = costos + parseFloat($('#optionalPrice_5').val());
-// 			  optionId.push($('#optionalId_5').val());
 		  }
 		  return costos;
 		}

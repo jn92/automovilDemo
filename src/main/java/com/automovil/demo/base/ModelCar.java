@@ -18,9 +18,9 @@ public abstract class ModelCar  implements Identifiable<Integer>{
 	/**
 	 * CLASE BASE DE DOMINIO
 	 */
-	
+//	strategy = GenerationType.AUTO
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Integer id;
 	

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.automovil.demo.entity.Car;
 
 @Repository("carRepository")
-public interface CarRepository extends JpaRepository<Car, Integer>{
+public interface CarRepository extends JpaRepository<Car, Integer> {
 
 	public Car findByIdAndDateDelete(Integer id, Date dateDelete);
 	
-//	public List<Car> findAllDateDelete(Date dateDelete);
-	
+	public List<Car> findAllByDateDelete(Date dateDelete);
+
 }

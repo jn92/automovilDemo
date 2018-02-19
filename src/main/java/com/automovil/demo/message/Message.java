@@ -7,16 +7,14 @@ import net.sf.json.JSONObject;
 public abstract class Message {
 
 	private String label;
-	
+
 	private String message;
-	
-	
+
 	public Message(String label, String message) {
 		this.label = label;
 		this.message = message;
 	}
-	
-	
+
 	public String getLabel() {
 		return label;
 	}
@@ -32,10 +30,9 @@ public abstract class Message {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
+
 	public abstract String getType();
-	
-	
+
 	public String toJSON() {
 		JSONObject json = new JSONObject();
 		json.put("type", this.getType());

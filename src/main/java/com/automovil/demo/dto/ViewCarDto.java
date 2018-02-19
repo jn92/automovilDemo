@@ -1,15 +1,15 @@
 package com.automovil.demo.dto;
 
 public class ViewCarDto {
-	
+
 	private Integer id;
-	
+
 	private String name;
-	
+
 	private String variantModel;
-	
+
 	private String optional;
-	
+
 	private Float price;
 
 	public String getVariantModel() {

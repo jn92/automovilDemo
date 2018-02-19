@@ -1,9 +1,9 @@
 package com.automovil.demo.message;
 
-public class InformationMessage extends Message{
+public class InformationMessage extends Message {
 
 	private String type = "information";
-	
+
 	public InformationMessage(String label, String message) {
 		super(label, message);
 	}

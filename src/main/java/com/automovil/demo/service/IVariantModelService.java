@@ -8,6 +8,8 @@ import com.automovil.demo.exception.ServiceException;
 public interface IVariantModelService {
 
 	public VariantModel getVariantModel(Integer variantModelId) throws ServiceException;
-	
-	public List<VariantModel> getVariantModelList () throws ServiceException;
+
+	public List<VariantModel> getVariantModelList() throws ServiceException;
+
+	public VariantModel getVariantModelByName(String variantModelName) throws ServiceException;
 }
