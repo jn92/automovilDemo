@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.automovil.demo.entity.Car;
 import com.automovil.demo.entity.CarOptional;
 import com.automovil.demo.exception.ServiceException;
 import com.automovil.demo.repository.CarOptionalRepository;
@@ -39,10 +40,10 @@ public class CarOptionalService implements ICarOptionalService {
 	}
 
 	@Override
-	public List<CarOptional> carOptionalList(Integer carId) throws ServiceException {
+	public List<CarOptional> carOptionalList(Car car) throws ServiceException {
 		List<CarOptional> variantModelOptionalList = new ArrayList<CarOptional>();
 		try {
-			variantModelOptionalList = carOptionalRepository.findAllByCarAndDateDelete(carId, null);
+			variantModelOptionalList = carOptionalRepository.findAllByCarAndDateDelete(car, null);
 		} catch (Exception e) {
 			throw new ServiceException("Fallo en la Busqueda de Automoviles", e.getMessage());
 		}

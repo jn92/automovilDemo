@@ -12,4 +12,6 @@ public interface VariantModelRepository extends JpaRepository<VariantModel, Inte
 
 	public VariantModel findByIdAndDateDelete(Integer id, Date dateDelete);
 
+	public VariantModel findByNameAndDateDelete(String variantModelName, Object object);
+
 }

@@ -29,6 +29,14 @@ public class VariantModelService implements IVariantModelService {
 			throw new ServiceException("Variante de Modelos: ", "Error al obtener los datos de variante de modelo");
 		return variantModel;
 	}
+	
+	@Override
+	public VariantModel getVariantModelByName(String variantModelName) throws ServiceException {
+		VariantModel variantModel = variantModelRepository.findByNameAndDateDelete(variantModelName, null);
+		if (variantModel == null)
+			throw new ServiceException("Variante de Modelos: ", "Error al obtener los datos de variante de modelo");
+		return variantModel;
+	}
 
 	@Override
 	public List<VariantModel> getVariantModelList() throws ServiceException {
